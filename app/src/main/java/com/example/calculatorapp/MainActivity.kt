@@ -1,42 +1,41 @@
 package com.example.calculatorapp
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-
+import com.example.calculatorapp.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     var lastNumeric: Boolean = false
     var lastDot: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
     }
 
     fun onDigit(view: View){
-        val tvInput: TextView = findViewById(R.id.tvInputField)
-        tvInput.append((view as Button).text)
+        binding.tvInputField.append((view as Button).text)
         lastNumeric = true
     }
 
     fun onClear(view: View){
-        val tvInput: TextView = findViewById(R.id.tvInputField)
-        tvInput.text = ""
+        binding.tvInputField.text = ""
         lastNumeric = false
         lastDot = false
     }
 
     fun onDecimalPoint(view: View){
-        val tvInput: TextView = findViewById(R.id.tvInputField)
         if(lastNumeric && !lastDot){
-            tvInput.append(".")
+            binding.tvInputField.append(".")
             lastNumeric = false
             lastDot = true
         }
